@@ -3,10 +3,14 @@ import React, { useState } from "react";
 function Counter() {
   // Déclare une nouvelle variable d'état, qu’on va appeler « count »
   // Déclare une fonction setCount qui permet de modifier la valeur de count
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState("");
 
   const handleChangeCount = (event) => {
-    setCount(parseInt(event.target.value));
+    setCount(
+      event.target.value === "-" || event.target.value === ""
+        ? event.target.value
+        : parseInt(event.target.value)
+    );
   };
 
   return (
@@ -16,8 +20,20 @@ function Counter() {
         <input type="number" value={count} onChange={handleChangeCount}></input>{" "}
       </p>
 
-      <button onClick={() => setCount(count + 1)}>+1</button>
-      <button onClick={() => setCount(count - 1)}>-1</button>
+      <button
+        onClick={() => {
+          if (!(count === "" || count === "-")) setCount(count + 1);
+        }}
+      >
+        +1
+      </button>
+      <button
+        onClick={() => {
+          if (!(count === "" || count === "-")) setCount(count - 1);
+        }}
+      >
+        -1
+      </button>
     </div>
   );
 }
